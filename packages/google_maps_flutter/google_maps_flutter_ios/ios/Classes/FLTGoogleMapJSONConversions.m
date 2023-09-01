@@ -6,6 +6,27 @@
 
 @implementation FLTGoogleMapJSONConversions
 
++ (bool)toBool:(NSNumber*)data {
+  return data.boolValue;
+}
+
++ (int)toInt:(NSNumber*)data {
+  return data.intValue;
+}
+
++ (double)toDouble:(NSNumber*)data {
+  return data.doubleValue;
+}
+
++ (float)toFloat:(NSNumber*)data {
+  return data.floatValue;
+}
+
++ (CLLocationCoordinate2D)toLocation:(NSArray*)data {
+  return CLLocationCoordinate2DMake([FLTGoogleMapJSONConversions toDouble:data[0]],
+                                    [FLTGoogleMapJSONConversions toDouble:data[1]]);
+}
+
 + (CLLocationCoordinate2D)locationFromLatLong:(NSArray *)latlong {
   return CLLocationCoordinate2DMake([latlong[0] doubleValue], [latlong[1] doubleValue]);
 }

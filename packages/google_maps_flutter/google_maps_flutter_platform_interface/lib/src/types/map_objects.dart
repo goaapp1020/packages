@@ -5,6 +5,7 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/foundation.dart';
+import 'package:google_maps_flutter_platform_interface/src/types/ground_overlay.dart';
 
 import 'types.dart';
 
@@ -21,6 +22,7 @@ class MapObjects {
     this.polylines = const <Polyline>{},
     this.circles = const <Circle>{},
     this.tileOverlays = const <TileOverlay>{},
+    this.groundOverlays = const <GroundOverlay>{},
   });
 
   final Set<Marker> markers;
@@ -28,4 +30,5 @@ class MapObjects {
   final Set<Polyline> polylines;
   final Set<Circle> circles;
   final Set<TileOverlay> tileOverlays;
+  final Set<GroundOverlay> groundOverlays;
 }

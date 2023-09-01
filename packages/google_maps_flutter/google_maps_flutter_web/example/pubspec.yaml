@@ -9,7 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_maps_flutter_platform_interface: ^2.4.0
+  google_maps_flutter_platform_interface:
+    path: ../../google_maps_flutter_platform_interface
   google_maps_flutter_web:
     path: ../
 
@@ -18,7 +19,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   google_maps: ^6.1.0
-  google_maps_flutter: ^2.2.0 # Needed for projection_test.dart
+  google_maps_flutter:
+    path: ../../google_maps_flutter
   http: ">=0.13.0 <2.0.0"
   integration_test:
     sdk: flutter
