@@ -4,6 +4,7 @@
 
 package io.flutter.plugins.googlemaps;
 
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
@@ -36,8 +37,9 @@ class Convert {
 
   // TODO(hamdikahloun): FlutterMain has been deprecated and should be replaced with FlutterLoader
   //  when it's available in Stable channel: https://github.com/flutter/flutter/issues/70923.
+
   @SuppressWarnings("deprecation")
-  private static BitmapDescriptor toBitmapDescriptor(Object o) {
+  private static BitmapDescriptor toBitmapDescriptor(Object o, FlutterPlugin.FlutterAssets flutterAssets) {
     final List<?> data = toList(o);
     switch (toString(data.get(0))) {
       case "defaultMarker":
@@ -46,30 +48,37 @@ class Convert {
         } else {
           return BitmapDescriptorFactory.defaultMarker(toFloat(data.get(1)));
         }
+
       case "fromAsset":
         if (data.size() == 2) {
           return BitmapDescriptorFactory.fromAsset(
-              io.flutter.view.FlutterMain.getLookupKeyForAsset(toString(data.get(1))));
+                  flutterAssets.getAssetFilePathByName(toString(data.get(1))));
         } else {
-          return BitmapDescriptorFactory.fromAsset(
-              io.flutter.view.FlutterMain.getLookupKeyForAsset(
-                  toString(data.get(1)), toString(data.get(2))));
+          // For compatibility with old asset variants (e.g. with asset package)
+          String asset = flutterAssets.getAssetFilePathByName(toString(data.get(1)));
+          String package = toString(data.get(2));
+          if (package != null && !package.isEmpty()) {
+            asset = flutterAssets.getAssetFilePathByName(toString(data.get(1)), package);
+          }
+          return BitmapDescriptorFactory.fromAsset(asset);
         }
+
       case "fromAssetImage":
         if (data.size() == 3) {
           return BitmapDescriptorFactory.fromAsset(
-              io.flutter.view.FlutterMain.getLookupKeyForAsset(toString(data.get(1))));
+                  flutterAssets.getAssetFilePathByName(toString(data.get(1))));
         } else {
           throw new IllegalArgumentException(
-              "'fromAssetImage' Expected exactly 3 arguments, got: " + data.size());
+                  "'fromAssetImage' Expected exactly 3 arguments, got: " + data.size());
         }
+
       case "fromBytes":
         return getBitmapFromBytes(data);
+
       default:
         throw new IllegalArgumentException("Cannot interpret " + o + " as BitmapDescriptor");
     }
   }
-
   private static BitmapDescriptor getBitmapFromBytes(List<?> data) {
     if (data.size() == 2) {
       try {
