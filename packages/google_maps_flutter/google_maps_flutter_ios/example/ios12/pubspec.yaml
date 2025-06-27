@@ -13,11 +13,11 @@ dependencies:
   flutter_plugin_android_lifecycle: ^2.0.1
   google_maps_flutter_ios:
     git:
-      url: https://github.com/danyialkhan/packages.git
+      url: https://github.com/goaapp1020/packages.git
       path: packages/google_maps_flutter/google_maps_flutter_ios
   google_maps_flutter_platform_interface:
     git:
-      url: https://github.com/danyialkhan/packages.git
+      url: https://github.com/goaapp1020/packages.git
       path: packages/google_maps_flutter/google_maps_flutter_platform_interface
   maps_example_dart:
     path: ../shared/maps_example_dart/
